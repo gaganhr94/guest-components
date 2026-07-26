@@ -8,6 +8,10 @@ LIBC ?= musl
 
 ATTESTER ?=
 
+# KMS backends compiled into confidential-data-hub. Defaults to aliyun to match
+# the CDH sub-Makefile default; override (e.g. aliyun,aws) to add more backends.
+KMS_PROVIDER ?= aliyun
+
 NO_RESOURCE_PROVIDER ?=
 
 ifeq ($(NO_RESOURCE_PROVIDER), true)
@@ -86,7 +90,7 @@ build: $(CDH_BINARY) $(ASR_BINARY) $(AA_BINARY)
 
 $(CDH_BINARY):
 	@echo build $(CDH) for $(TEE_PLATFORM)
-	cd $(CDH) && $(MAKE) RESOURCE_PROVIDER=$(RESOURCE_PROVIDER) ARCH=$(ARCH) LIBC=$(LIBC)
+	cd $(CDH) && $(MAKE) RESOURCE_PROVIDER=$(RESOURCE_PROVIDER) KMS_PROVIDER=$(KMS_PROVIDER) ARCH=$(ARCH) LIBC=$(LIBC)
 
 $(AA_BINARY):
 	@echo build $(AA) for $(TEE_PLATFORM)
