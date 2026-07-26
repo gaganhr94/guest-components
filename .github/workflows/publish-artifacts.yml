@@ -185,6 +185,7 @@ jobs:
       env:
         ARCH: ${{ matrix.arch }}
         LIBC: ${{ matrix.libc }}
+        KMS_PROVIDER: aliyun,aws
       run: make ./target/$RUST_TARGET/release/confidential-data-hub
 
     - name: Build ASR
